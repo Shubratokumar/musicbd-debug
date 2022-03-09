@@ -8,5 +8,14 @@ const handleSearch = () =>{
 
   fetch(url)
   .then(res => res.json())
-  .then(data => console.log(data))
+  .then(data => showArtist(data))
+}
+
+const showArtist = (data) =>{
+  console.log(data.artists);
+  // const artists = data.artists; // general method
+  const {artists} = data;  // object destructuring
+  artists.forEarch((artist) =>{
+    console.log(artist);
+  })
 }
