@@ -44,5 +44,23 @@ const fetchAlbums = (id) => {
   const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
   fetch(url)
   .then(res => res.json())
-  .then(data => console.log(data))
+  .then(data => showAlbum(data))
+}
+const showAlbum = ({album}) => {
+  const albumsContainer = document.getElementById('albums');  
+  album.forEach((item) => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+    <div class="album-image-container">
+    <img
+      src="${item.strAlbumThumb ? item.strAlbumThumb : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRikhddhHqZyLCxvwFFd1weIv6wQttST0z9q4MjTnLnyxv9cp1HEqvBNnzqm98IXfvWyFI&usqp=CAU"}"
+      alt=""
+    />
+    </div>
+    <div class="album-name">
+      <h3>${item.strAlbum ? item.strAlbum : "Album name not found" }</h3>
+    </div>
+    `;
+    albumsContainer.appendChild(div);
+  })
 }
