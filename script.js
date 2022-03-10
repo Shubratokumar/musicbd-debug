@@ -1,20 +1,27 @@
 const elementById = (id) => {
   return document.getElementById(id);
 };
+const artistContainer = elementById("artists");
+const albumsContainer = document.getElementById('albums');
 
 const handleSearch = () =>{
   const keyword = elementById("keyword");
   const url = `https://theaudiodb.com/api/v1/json/2/search.php?s=${keyword.value}`;
   fetch(url)
   .then(res => res.json())
-  .then(data => showArtist(data))
+  .then(data => showArtist(data));
+  // clean input field
+  keyword.value = "";
+  // clean container
+  artistContainer.innerHTML = "";
+  albumsContainer.innerHTML = "";
 }
 
 const showArtist = ({artists}) =>{
-  const artistContainer = elementById("artists")
+  // const artistContainer = elementById("artists");
   // const artists = data.artists; // general method
   // const {artists} = data;  // object destructuring
-  artists.forEach((artist) =>{
+  artists?.forEach((artist) =>{
     const div = document.createElement('div');
     div.classList.add("artist-card");
     div.innerHTML = `
@@ -44,12 +51,15 @@ const fetchAlbums = (id) => {
   const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
   fetch(url)
   .then(res => res.json())
-  .then(data => showAlbum(data))
+  .then(data => showAlbum(data));
+  // clean container
+  albumsContainer.innerHTML = "";
 }
 const showAlbum = ({album}) => {
-  const albumsContainer = document.getElementById('albums');  
-  album.forEach((item) => {
+  // const albumsContainer = document.getElementById('albums');  
+  album?.forEach((item) => {
     const div = document.createElement('div');
+    div.classList.add("album");
     div.innerHTML = `
     <div class="album-image-container">
     <img
@@ -62,5 +72,5 @@ const showAlbum = ({album}) => {
     </div>
     `;
     albumsContainer.appendChild(div);
-  })
+  });
 }
