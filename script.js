@@ -40,6 +40,9 @@ const showArtist = ({artists}) =>{
   });
 };
 
-const fetchAlbums = () => {
-  console.log('fetch data')
+const fetchAlbums = (id) => {
+  const url = `https://theaudiodb.com/api/v1/json/2/album.php?i=${id}`;
+  fetch(url)
+  .then(res => res.json())
+  .then(data => console.log(data))
 }
